@@ -18,3 +18,6 @@ C:\>netstat -aon|findstr "9050"
 C:\>tasklist|findstr "2016"
 4.结束该进程
 C:\>taskkill /f /t /im tor.exe
+
+#mysql-connector-python
+unix_socket='/tmp/mysql.sock'
