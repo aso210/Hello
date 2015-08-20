@@ -8,3 +8,13 @@ git clone git@github.com:aso210/Hello.git
 git remote add origin git@github.com:aso210/Hello.git
 git push -u origin master
 git push origin master
+
+1、Windows平台 
+1.查看所有的端口占用情况
+C:\>netstat -ano
+2.查看指定端口的占用情况
+C:\>netstat -aon|findstr "9050"
+3.查看PID对应的进程
+C:\>tasklist|findstr "2016"
+4.结束该进程
+C:\>taskkill /f /t /im tor.exe
