@@ -21,3 +21,6 @@ C:\>taskkill /f /t /im tor.exe
 
 #mysql-connector-python
 unix_socket='/tmp/mysql.sock'
+
+git push origin test 添加远程分支test
+git push origin :test 删除远程分支test
