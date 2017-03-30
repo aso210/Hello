@@ -1,0 +1,156 @@
+python pack_apk.py '{"projectPath":"/Users/boyaa/androidTest/products/engine_android","keyStorePath":"/Users/boyaa/androidTest/boyaa_region_games.keystore","keyStorePwd":"boyaagames2014","keyStoreAlias":"boyaa_region_games.keystore","keyStoreAliasPwd":"boyaagames2014"}'
+
+
+export ANDROID_HOME=/usr/local/opt/android-sdk
+export PATH=$ANDROID_HOME/tools:$PATH
+
+ANT_HOME=/usr/local/opt/ant
+PATH=$PATH:$ANT_HOME/bin
+
+
+android update sdk -a -u -t 1,38,163,164
+
+
+Set<String> supportPmodes = GodSDKIAP.getInstance().getSupportingPmodes();
+for(String pmode : supportPmodes){
+	GodSDK.getInstance().getDebugger().d("pmode:" + pmode);
+}
+Set<String> supportPmodesByFilter = GodSDKIAP.getInstance().getSupportingPmodesByFilter();
+for(String pmode : supportPmodesByFilter){
+	GodSDK.getInstance().getDebugger().d("pmode by filter:" + pmode);
+}
+
+/data/wwwroot/tools/data/temp/20161118143218_47_876238/products
+
+adb shell getprop ro.product.cpu.abi
+
+adb shell screenrecord
+
+jarsigner -verbose -keystore path -storepass pass -signedjar apk-signed.apk apk.apk alias
+
+git clone ssh://MartinLin@192.168.201.86:3600/disk/LocalPack
+
+
+facebook v4.10.0版本SDK引用了support-v4、support-annotions、cardview-v7等jar包，各个jar包都会自动引用sdk目录下的23.x 最新版本，导致apktool 1.5.3反编译出错，于是修改sdk目录下的配置文件，将最新版本指定为23.0.1(将高于23.0.1的版本注释掉)
+路径：D:\android-sdk-windows\extras\android\m2repository\com\android\support\support-annotations\maven-metadata.xml
+
+*.o *.lo *.la *.al .libs *.so *.so.[0-9]* *.a *.pyc *.pyo __pycache__ *.rej *~ #*# .#* .*.swp .DS_Store [Tt]humbs.db
+
+
+jarsigner -verbose -keystore D:\UserProfiles\MartinLin\Desktop\keystore\keystore.keystore -storepass boyaagames2014 -signedjar D:\UserProfiles\MartinLin\Desktop\ddz3_s.apk D:\UserProfiles\MartinLin\Desktop\ddz3.apk "boyaa_region_games.keystore"
+
+
+
+
+
+UI
+ActionBarSherlock、DragSortListView、SwapMenuLayout、Android-PullToRefresh
+
+依赖注入
+Dagger、AndroidAnnotion、RoboGuice、ButterKnife
+
+DataBinding
+
+图片缓存
+fresco
+
+网络
+volley、okhttp
+
+
+AndFix
+
+
+keytool -genkey -alias android.keystore -keyalg RSA -validity 20000 -keystore android.keystore
+
+Error:(86, 1) A problem occurred evaluating root project 'andfix'.
+> Could not read script 'https://raw.githubusercontent.com/attwellBrian/JCenter/master/installv1.gradle'.
+   > Read timed out
+
+apkpatch.bat -f D:\UserProfiles\MartinLin\Desktop\nnew.apk -t D:\UserProfiles\MartinLin\Desktop\oold.apk -o D:\UserProfiles\MartinLin\Desktop\out3 -k D:\UserProfiles\MartinLin\Desktop\test.keystore -p 111111 -a test.keystore -e 111111
+
+C:\Users\MartinLin\.grade\wrapper\dists\gradle-2.8-all\ah86jmo43de9lfa8xg9ux3c4h\gradle-2.8
+
+6214 8565 5865 6678
+639321615
+
+991261853344
+
+360DrodPlugin、SmartUpdate、xUtils(Download)、Andfix、Apktool
+
+158484921174827/friendlists
+
+{
+  "data": [
+    {
+      "id": "158026957887290"
+    },
+    {
+      "id": "158026951220624"
+    },
+    {
+      "id": "158026944553958"
+    }
+  ],
+  "paging": {
+    "next": "https://graph.facebook.com/v2.5/158484921174827/friendlists?format=json&access_token=CAAXNcMau8ooBAKZBYdhg8NzMrnBnrZCc3bprl6ZA8UZC9H8YZC0wjrHD8KoP2DSytSA5q6BxRPNLV0f1FcZB5BiOpZCkj6WfMTKrF2ur83Hp6pKpKL3tiVdHiDCNcQWJGOLZBQmwEKcN8PyFdYnCa3KzZCBpUWBqCQBBhuuRvDgoNT3VbeR6EN9cby3LQZBB7SrKKaMZApxCtgf4gZDZD&limit=25&offset=25&__after_id=enc_AdChHB8mUP0ZCEFrWmlpO0gjNb1GQEmGhGhXiB5hyXYthAnJ5bH2ALcitX154BHDwZCkTn2vyz8VvjatkGUSAZBsEdc"
+  }
+}
+
+13714284557
+
+关键类：
+Connection : 内部保存连接的一些参数，包括：host、port、clientid等，还有MqttAndroidClient对象和一个PropertyChangeListener集合，有新消息时会遍历listener集合调用所有监听。
+
+Connections : 单例，Connection的集合保存当前的所有连接，key为clientHandle = uri + clientId
+
+MqttAndroidClient : 继承广播，做为客户端负责与服务端（本地服务）交互的窗口。主要作用：1.启动MqttService，注册广播，接受来自service的广播消息 2. 调用各个接口时（connect, subcribe, pulish等）保存IMqttToken，并在接收到消息后取出相应的token调用其中的回调。发现还有另一种回调为MqttCallbackHandler（connectionLost，messageArrived），两种回调的区别？
+
+MqttService：服务，内部包含一个MqttConnection集合缓存当前所有连接，key为clientHandle = serverURI + ":" + clientId+":"+contextId（包名），注册了广播监听网络变化。收到各种消息的信息之后通过发送广播传递给client
+
+MqttConnection :
+    MqttAsyncClient :
+        ClientComms :
+          NetworkModule
+          ClientState
+          CommsSender
+          CommsReceiver
+          CommsCallback
+          MqttPingSender
+
+
+IMqttActionListener
+  --ActionListener
+      onSuccess
+      onFailure
+
+MqttCallback
+  --MqttCallbackHandler
+      connectionLost
+      messageArrived
+      deliveryComplete
+
+IMqttToken
+  --MqttTokenAndroid
+      ---MqttDeliveryTokenAndroid  implement IMqttDeliveryToken
+            waitForCompletion                     getMessage
+            isComplete
+            setActionCallback
+            getClient
+            getTopics
+            getResponse
+            .
+            .
+            .
+
+
+MqttAndroidClient-->MqttService-->MqttConnection-->MqttAsyncClient-->ClientComms-->ClientState/CommsCallback/CommsReceiver/CommsSender
+
+
+执行 pyinstaller 出现 fail to create process. 
+原因：由于Python的安装路径中存在空格，所以路径无法识别。
+解决办法：在Python安装目录Script目录下，修改pyinstaller-script.py首行
+#!d:\program files (x86)\python3.4.3\python.exe
+为#"!d:\program files (x86)\python3.4.3\python.exe"
+
+PyQt与python的版本必须要一致（32或者64位）
